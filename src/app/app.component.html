@@ -1,3 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<div>
+    <app-login [AuthState]="AuthState"></app-login>
+    <pre>
+        {{AuthState | json}}
+    </pre>
+</div>
