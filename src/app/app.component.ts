@@ -18,4 +18,7 @@ export class AppComponent implements OnInit {
     
   }
 
+  updateAuthState(e){
+    this.AuthState = e;
+  }
 }

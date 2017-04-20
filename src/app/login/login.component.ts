@@ -1,11 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { 
+  Component,
+  OnInit, 
+  Input, 
+  Output, 
+  EventEmitter  
+} from '@angular/core';
+import { 
+  AngularFire,
   AuthMethods,
   AuthProviders,
   FirebaseAuthState
-} from 'angularfire2/auth';
-import { 
-  AngularFire  
 } from 'angularfire2';
 
 @Component({
@@ -15,21 +19,29 @@ import {
 })
 export class LoginComponent implements OnInit {
   @Input()
-  AuthState = <FirebaseAuthState> null;
+  AuthState = <FirebaseAuthState> null;      
+  @Output()
+  AuthStateChange: EventEmitter<FirebaseAuthState> = new EventEmitter<FirebaseAuthState>();
   constructor(private af: AngularFire){ }
 
-  ngOnInit(): void {
-    this.af.auth.subscribe(auth => this.AuthState = auth);
-  }
+  ngOnInit(): void {  
+    var that = this;  
+    this.af.auth.subscribe(auth => {
+      that.AuthState = auth;
+      that.AuthStateChange.emit(this.AuthState);
+    });  
+  }  
 
   login(): void{
     this.af.auth.login({
       provider: AuthProviders.Google,
       method: AuthMethods.Redirect
-    });
+    });        
   }
 
   logout() {
      this.af.auth.logout();
+
+     this.AuthStateChange.emit(null);
   }
 }
