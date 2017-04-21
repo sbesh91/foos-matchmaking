@@ -1,5 +1,14 @@
 <div>
-    <app-login                     
-        (authStateChange)="updateAuthState($event)"></app-login>    
+    <md-toolbar color="primary">
+        <span>Foos!</span>
+
+        <span class="fill-remaining-space"></span>
+
+        <span>
+            <app-login                     
+                (authStateChange)="updateAuthState($event)"></app-login>
+        </span>
+    </md-toolbar>
+        
     <app-body></app-body>
 </div>

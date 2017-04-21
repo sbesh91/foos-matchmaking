@@ -1,13 +1,17 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import {
+  MdButtonModule,
+  MdToolbarModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BodyComponent } from './body/body.component';
-import { QueueComponent } from './queue/queue.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB_9MJdhOp7YBue9k2_sL-ZF0FB-C3TB9Q",
@@ -22,13 +26,15 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    BodyComponent,
-    QueueComponent
+    BodyComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdToolbarModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],

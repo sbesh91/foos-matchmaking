@@ -1,8 +1,14 @@
-<div>
-  <pre>
-    {{queue | json}}
-  </pre>
-  <button *ngIf="queue.status != 2" (click)="join()">
-    Join Queue!
-  </button>
+<div >  
+  <!--<div *ngIf="getMyStatus()">I'm In</div>-->
+  <div *ngIf="!getMyStatus()">
+    <button md-raised-button *ngIf="queue.status != 2" (click)="join()">
+      Join Queue!
+    </button>
+  </div>
+  
+  <div class="queue-container">
+    <div *ngFor="let i of queue?.users" class="profile-container">      
+      <img class="profile" [src]="i.photoURL"/>
+    </div>
+  </div>
 </div>

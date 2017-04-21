@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   authState: FirebaseAuthState;
   constructor(private af: AngularFire){ }
   ngOnInit(): void {    
-    Notification.requestPermission();
+        
   }
 
   updateAuthState(e){
