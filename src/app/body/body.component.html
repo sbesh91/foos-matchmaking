@@ -1,14 +1,15 @@
 <div >  
   <!--<div *ngIf="getMyStatus()">I'm In</div>-->
-  <div *ngIf="!getMyStatus()">
+  <div *ngIf="!getMyStatus()" class="join">
     <button md-raised-button *ngIf="queue.status != 2" (click)="join()">
       Join Queue!
-    </button>
+    </button>    
   </div>
   
   <div class="queue-container">
     <div *ngFor="let i of queue?.users" class="profile-container">      
       <img class="profile" [src]="i.photoURL"/>
+      <div>{{ i.displayName }}</div>
     </div>
   </div>
 </div>

@@ -2,17 +2,25 @@
     height:100px;
     width:100px;
     border-radius: 50%;
-    margin: 10px;        
+    margin: 20px 10px;        
 }
 
 .profile-container{
     flex: 0 0 50%;
     justify-content: center;
+    align-items: center;
     display: flex;
+    flex-direction: column;
 }
 
 .queue-container{
     display: flex;
     flex-wrap: wrap;
     padding: 20px;    
+}
+
+.join{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
 }
