@@ -6,6 +6,8 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { BodyComponent } from './body/body.component';
+import { QueueComponent } from './queue/queue.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB_9MJdhOp7YBue9k2_sL-ZF0FB-C3TB9Q",
@@ -19,7 +21,9 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    BodyComponent,
+    QueueComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseAuthState } from 'angularfire2/auth';
 import { 
   AngularFire,
   FirebaseListObservable, 
-  FirebaseObjectObservable
+  FirebaseObjectObservable,
+  FirebaseAuthState
 } from 'angularfire2';
 
 @Component({
@@ -12,13 +12,13 @@ import {
   styleUrls: ['./app.component.css']  
 })
 export class AppComponent implements OnInit {    
-  AuthState: FirebaseAuthState;
+  authState: FirebaseAuthState;
   constructor(private af: AngularFire){ }
   ngOnInit(): void {    
-    
+    Notification.requestPermission();
   }
 
   updateAuthState(e){
-    this.AuthState = e;
+    this.authState = e;            
   }
 }

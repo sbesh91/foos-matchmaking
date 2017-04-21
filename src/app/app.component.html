@@ -1,8 +1,5 @@
 <div>
-    <app-login         
-        [AuthState]="AuthState"
-        (AuthStateChange)="updateAuthState($event)"></app-login>
-    <pre>
-        {{AuthState | json}}
-    </pre>
+    <app-login                     
+        (authStateChange)="updateAuthState($event)"></app-login>    
+    <app-body></app-body>
 </div>

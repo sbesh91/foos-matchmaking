@@ -1,0 +1,8 @@
+<div>
+  <pre>
+    {{queue | json}}
+  </pre>
+  <button *ngIf="queue.status != 2" (click)="join()">
+    Join Queue!
+  </button>
+</div>
