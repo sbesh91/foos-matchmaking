@@ -8,8 +8,21 @@
   
   <div class="queue-container">
     <div *ngFor="let i of queue?.users" class="profile-container">      
-      <img class="profile" [src]="i.photoURL"/>
+      <div class="image-wrapper">
+        <img class="profile" [src]="i.photoURL"/>        
+        <button 
+          *ngIf="i.uid == authState.google.uid"
+          md-mini-fab class="leave"
+          (click)="leave()">
+          +
+        </button>
+      </div>      
       <div>{{ i.displayName }}</div>
+
     </div>
   </div>
+  <pre>
+      {{queue | json}}
+      {{authState | json}}
+  </pre>
 </div>

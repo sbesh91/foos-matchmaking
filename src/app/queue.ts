@@ -11,6 +11,14 @@ export class Queue {
         this.users.push(user);
         this.setStatus();
     }
+
+    public remove(user: any){
+        this.users = this.users.filter((obj, index) => { 
+            return obj.uid != user.google.uid;
+        });
+        this.setStatus();
+    }
+
     public clear(){
         this.users = [];
         this.setStatus();

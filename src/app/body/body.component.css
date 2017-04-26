@@ -19,8 +19,23 @@
     padding: 20px;    
 }
 
+.image-wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .join{
     padding: 20px;
     display: flex;
     justify-content: center;
+}
+
+.leave{
+    position:absolute;
+    opacity: .4;
+    font-size: 32px;  
+    transform:rotate(45deg);  
+    background-color: rgba(0, 0, 0, .7);
 }

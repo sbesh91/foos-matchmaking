@@ -1,3 +1,5 @@
+import { leave } from '@angular/core/src/profile/wtf_impl';
+import { FoosService } from '../foos.service';
 import { Queue } from '../queue';
 import { Component, OnInit, Input } from '@angular/core';
 import { 
@@ -14,7 +16,6 @@ import { Status } from "app/status.enum";
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-  private notification: Notification;
   authState: FirebaseAuthState;
   queue: Queue = new Queue();  
   getMyStatus(){
@@ -24,7 +25,7 @@ export class BodyComponent implements OnInit {
     return this.queue.users.filter((value) => value.uid == this.authState.google.uid).length > 0;
   }
 
-  constructor(private af: AngularFire) { }
+  constructor(private af: AngularFire, private svc: FoosService) { }
 
   ngOnInit() {
     this.af.auth.subscribe(auth => {
@@ -35,50 +36,23 @@ export class BodyComponent implements OnInit {
       this.queue.users = queue.users;
       this.queue.status = queue.status;
       
-      //todo figure out how to destroy old notifications so they don't stack      
-      if(this.notification){
-        this.notification.close();
-      }
-      if(this.queue.status == Status.found){        
-        Notification.requestPermission(result => {
-          if(result == 'granted'){            
-            navigator.serviceWorker.ready.then(registration => {   
-              registration.getNotifications().then(notifications => {
-               for(let n of notifications){
-                 n.close();
-               }
-             });
-
-              registration.showNotification("Game Found!");              
-            });
-          }
-        });
-        // todo move this into user interaction
-        // this.queue.clear();
-        // this.af.database.object('queue').set(this.queue);
-        
+      if(this.queue.status == Status.found){                      
+        this.svc.FireFoundMessage();
       }else if(this.queue.status == Status.searching){        
-        Notification.requestPermission(result => {
-          if(result == 'granted'){
-            navigator.serviceWorker.ready.then(registration => {
-             registration.getNotifications().then(notifications => {
-               for(let n of notifications){
-                 n.close();
-               }
-             });
-             
-              registration.showNotification(`Searching for ${4 - this.queue.users.length} players...`);
-            });
-          }
-        });
+        this.svc.FireSearchingMessage(this.queue);
       }
     });
   }
   
   join(){
     if(this.authState != null) {                           
-        this.queue.add(this.authState.google);
-        this.af.database.object('queue').set(this.queue);
+        this.svc.JoinQueue(this.queue, this.authState);
+    }
+  }  
+
+  leave(){    
+    if(this.authState != null) {                           
+        this.svc.LeaveQueue(this.queue, this.authState);
     }
   }    
 }
