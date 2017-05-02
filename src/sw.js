@@ -3,7 +3,7 @@ self.addEventListener('install', e => {
       caches.open('foos')
       .then(function(cache) {
         return cache.addAll([
-          
+          "/"
         ]);
       })      
   );

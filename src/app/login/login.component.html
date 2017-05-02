@@ -1,4 +1,4 @@
-<div>
-    <button md-raised-button *ngIf="!authState" (click)="login()">Login</button>
-    <button md-button *ngIf="authState" (click)="logout()">Log Out</button>
+<div class="userAuthButtons">
+    <button color="accent" md-raised-button *ngIf="!user" (click)="login()">Login</button>
+    <button color="accent" md-raised-button *ngIf="user" (click)="logout()">Log Out</button>
 </div>

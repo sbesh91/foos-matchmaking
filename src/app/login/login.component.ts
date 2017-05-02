@@ -9,28 +9,25 @@ import {
   AngularFire,
   AuthMethods,
   AuthProviders,
-  FirebaseAuthState,
   FirebaseObjectObservable
 } from 'angularfire2';
+import { User } from "app/user";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {    
-  @Output()
-  authStateChange: EventEmitter<FirebaseAuthState> = new EventEmitter<FirebaseAuthState>();
-  authState: FirebaseAuthState;    
+export class LoginComponent implements OnInit {
+  user: User;    
 
   constructor(private af: AngularFire){ }
 
   ngOnInit(): void {      
     this.af.auth.subscribe(auth => {
-      this.authState = auth;
-      this.authStateChange.emit(this.authState);
       if(auth != null) {
-        this.af.database.object(`users/${auth.uid}`).set(auth.google);
+        this.user = new User(auth.uid,auth.auth.displayName,auth.auth.photoURL,auth.auth.email);
+        this.af.database.object(`users/${auth.uid}`).set(this.user);
       }
     });  
   }  
@@ -44,7 +41,5 @@ export class LoginComponent implements OnInit {
 
   logout() {
      this.af.auth.logout();
-
-     this.authStateChange.emit(null);
   }
 }

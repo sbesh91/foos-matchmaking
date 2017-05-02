@@ -1,10 +1,12 @@
 import { Status } from "./status.enum";
+import { User } from "app/user";
 
 export class Queue {
-    users: any[];
+    usersPerMatch: number = 4;
+    users: User[];
     status: Status = Status.empty;    
 
-    public add(user:any){
+    public add(user:User){
         if(!this.users){
             this.users = [];
         }
@@ -12,9 +14,9 @@ export class Queue {
         this.setStatus();
     }
 
-    public remove(user: any){
+    public remove(user: User){
         this.users = this.users.filter((obj, index) => { 
-            return obj.uid != user.google.uid;
+            return obj.uid != user.uid;
         });
         this.setStatus();
     }
@@ -24,9 +26,9 @@ export class Queue {
         this.setStatus();
     }
     private setStatus(){
-        if(this.users.length == 4){
+        if(this.users.length == this.usersPerMatch){ 
             this.status = Status.found;            
-        }else if(this.users.length > 0 && this.users.length < 4){
+        }else if(this.users.length > 0 && this.users.length < this.usersPerMatch){
             this.status = Status.searching;            
         }else if(this.users.length == 0){
             this.status = Status.empty;            
